@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: dark;
+  --page-background: #0a0a0a;
+  --header-background: rgb(10 10 10 / 0.85);
+  --section-background: rgb(255 255 255 / 0.02);
+  --surface: rgb(255 255 255 / 0.04);
+  --surface-hover: rgb(255 255 255 / 0.08);
+  --input-background: rgb(0 0 0 / 0.18);
+  --text: #ffffff;
+  --muted: #a1a1aa;
+  --muted-strong: #d4d4d8;
+  --border: rgb(255 255 255 / 0.12);
+  --button-background: #ffffff;
+  --button-text: #18181b;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --page-background: #f8fafc;
+  --header-background: rgb(248 250 252 / 0.85);
+  --section-background: rgb(15 23 42 / 0.035);
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --input-background: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --muted-strong: #334155;
+  --border: rgb(15 23 42 / 0.14);
+  --button-background: #0f172a;
+  --button-text: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--page-background);
+  color: var(--text);
+}
