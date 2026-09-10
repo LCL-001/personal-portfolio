@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+﻿import { Link, useParams } from 'react-router-dom'
 import ArchitectureFlow from '../components/ArchitectureFlow'
 import DecisionBlock from '../components/DecisionBlock'
 import MetricGrid from '../components/MetricGrid'
@@ -40,7 +40,7 @@ function ProjectPage() {
             <p className="font-mono text-xs tracking-[0.08em] text-muted">{project.period}</p>
           </div>
 
-          <h1 className="mt-6 font-serif text-4xl leading-tight tracking-tight text-white sm:text-5xl">
+          <h1 className="mt-6 font-serif text-4xl font-normal leading-tight tracking-tight text-white sm:text-5xl">
             {project.title}
           </h1>
           <p className="measure mt-6 text-lg leading-9 text-body">{project.oneLiner}</p>
@@ -74,7 +74,7 @@ function ProjectPage() {
         </header>
 
         <section className="mt-24">
-          <h2 className="font-serif text-2xl text-white">性能指标与出处</h2>
+          <h2 className="font-serif text-2xl font-normal text-white">性能指标与出处</h2>
           <p className="measure mt-3 text-sm leading-7 text-muted">
             每个数字都标了它的原始来源和测量方法。如果你要问"这是怎么测出来的"，答案在这一行里。
           </p>
@@ -84,7 +84,7 @@ function ProjectPage() {
         </section>
 
         <section className="mt-24">
-          <h2 className="font-serif text-2xl text-white">架构分层</h2>
+          <h2 className="font-serif text-2xl font-normal text-white">架构分层</h2>
           <p className="measure mt-3 text-sm leading-7 text-muted">
             按请求经过的顺序排列，而不是按目录结构。
           </p>
@@ -94,7 +94,7 @@ function ProjectPage() {
         </section>
 
         <section className="mt-24">
-          <h2 className="font-serif text-2xl text-white">关键技术决策</h2>
+          <h2 className="font-serif text-2xl font-normal text-white">关键技术决策</h2>
           <p className="measure mt-3 text-sm leading-7 text-muted">
             每条包含被否掉的方案和这个方案的代价。局限是我主动写出来的，不是等被问出来的。
           </p>
@@ -106,7 +106,7 @@ function ProjectPage() {
         </section>
 
         <section className="mt-24">
-          <h2 className="font-serif text-2xl text-white">压测暴露的瓶颈</h2>
+          <h2 className="font-serif text-2xl font-normal text-white">压测暴露的瓶颈</h2>
           <div className="mt-8 space-y-8">
             {project.bottlenecks.map((item) => (
               <div key={item.title} className="border-t border-rule pt-6">
@@ -118,7 +118,7 @@ function ProjectPage() {
         </section>
 
         <section className="mt-24">
-          <h2 className="font-serif text-2xl text-white">已知短板</h2>
+          <h2 className="font-serif text-2xl font-normal text-white">已知短板</h2>
           <ul className="mt-8 space-y-4">
             {project.limitations.map((item) => (
               <li key={item} className="measure flex gap-4 text-sm leading-7 text-body">

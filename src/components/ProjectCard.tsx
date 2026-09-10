@@ -19,7 +19,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </p>
       </div>
 
-      <h3 className="mt-5 font-serif text-3xl tracking-tight text-white sm:text-4xl">
+      <h3 className="mt-5 font-serif text-3xl font-normal tracking-tight text-white sm:text-4xl">
         <Link to={`/projects/${project.slug}`} className="transition-colors hover:text-accent">
           {project.title}
         </Link>

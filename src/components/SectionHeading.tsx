@@ -11,7 +11,7 @@ function SectionHeading({ index, title, lede }: SectionHeadingProps) {
   return (
     <div className="border-t border-rule pt-6">
       <p className="section-index">{index}</p>
-      <h2 className="mt-3 font-serif text-3xl tracking-tight text-white sm:text-4xl">{title}</h2>
+      <h2 className="mt-3 font-serif text-3xl font-normal tracking-tight text-white sm:text-4xl">{title}</h2>
       {lede ? <p className="measure mt-4 text-base leading-8 text-muted">{lede}</p> : null}
     </div>
   )

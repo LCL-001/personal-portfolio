@@ -13,7 +13,7 @@ function Hero() {
         </p>
 
         <div className="mt-8 border-t border-rule-strong pt-10">
-          <h1 className="measure font-serif text-5xl leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl">
+          <h1 className="measure font-serif text-5xl font-normal leading-[1.15] tracking-tight text-white sm:text-6xl lg:text-7xl">
             {profile.headline}
           </h1>
 
