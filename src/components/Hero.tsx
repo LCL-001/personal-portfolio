@@ -1,30 +1,54 @@
 import { profile } from '../data/profile'
-import { translations } from '../data/locale'
-import { usePreferences } from '../contexts/usePreferences'
 
-type HeroProps = { avatarSrc: string }
-
-/** Renders the introductory section displayed at the top of the portfolio. */
-function Hero({ avatarSrc }: HeroProps) {
-  const { language } = usePreferences()
-  const copy = translations[language]
-
+/**
+ * 首屏。编辑风的处理方式：眉题 → 发丝线 → 衬线大标题 → 导语 → 数据条。
+ * 刻意不用渐变文字、不用光晕色斑、不用圆形头像——这三样是模板指纹。
+ */
+function Hero() {
   return (
-    <section id="home" className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:py-40">
-      <div aria-hidden="true" className="absolute top-1/2 right-[-10rem] -z-10 h-80 w-80 -translate-y-1/2 rounded-full bg-violet-500/20 blur-3xl" />
-      <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1fr_auto] lg:gap-20">
-        <div className="max-w-3xl text-center lg:text-left">
-          <p className="mb-5 text-sm font-semibold tracking-[0.28em] text-cyan-300">{copy.heroEyebrow}</p>
-          <h1 className="text-balance text-5xl font-bold tracking-tight text-[var(--text)] sm:text-7xl"><span className="bg-linear-to-r from-cyan-300 via-violet-300 to-fuchsia-400 bg-clip-text text-transparent">{profile.heroTitle[language]}</span></h1>
-          <p className="mx-auto mt-7 max-w-xl text-pretty text-base leading-8 text-[var(--muted)] sm:text-lg lg:mx-0">{profile.heroDescription[language]}</p>
-          <a className="mt-9 inline-flex rounded-full border border-cyan-300/35 bg-cyan-300/10 px-5 py-3 text-sm font-semibold text-cyan-200 transition hover:border-cyan-200 hover:bg-cyan-300/20 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300" href="#projects">
-            {copy.nav.projects} <span aria-hidden="true" className="ml-2">↓</span>
-          </a>
+    <section id="home" className="px-6 pt-20 pb-24 sm:pt-28 sm:pb-32">
+      <div className="mx-auto max-w-6xl">
+        <p className="font-mono text-xs leading-6 tracking-[0.08em] text-muted sm:text-sm">
+          {profile.eyebrow}
+        </p>
+
+        <div className="mt-8 border-t border-rule-strong pt-10">
+          <h1 className="measure font-serif text-5xl leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl">
+            {profile.headline}
+          </h1>
+
+          <p className="measure mt-10 text-lg leading-9 text-body">{profile.lede}</p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+            <a
+              href="#projects"
+              className="font-mono text-sm tracking-[0.12em] text-accent transition-opacity hover:opacity-75"
+            >
+              看三个项目 ↓
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              className="font-mono text-sm tracking-[0.12em] text-muted transition-colors hover:text-accent"
+            >
+              {profile.email}
+            </a>
+          </div>
         </div>
-        <div className="relative mx-auto w-fit">
-          <div aria-hidden="true" className="absolute -inset-5 rounded-full bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 opacity-45 blur-2xl" />
-          <img className="relative h-48 w-48 rounded-full border border-[var(--border)] bg-[var(--surface)] object-cover shadow-2xl shadow-violet-950/50 sm:h-60 sm:w-60" src={avatarSrc} alt={profile.avatarAlt[language]} loading="lazy" decoding="async" />
-        </div>
+
+        {/* 数据条：像杂志的 "by the numbers"，让面试官第一眼就抓到可追问的点 */}
+        <dl className="mt-20 grid gap-px border-t border-rule sm:grid-cols-3">
+          {profile.heroFigures.map((figure) => (
+            <div key={figure.label} className="border-t border-rule pt-6 sm:border-t-0 sm:pr-8 sm:pt-8">
+              <dt className="font-mono text-3xl tracking-tight text-white sm:text-4xl">
+                {figure.value}
+                {figure.unit ? (
+                  <span className="ml-1 text-sm text-muted">{figure.unit}</span>
+                ) : null}
+              </dt>
+              <dd className="mt-3 text-sm leading-6 text-muted">{figure.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   )

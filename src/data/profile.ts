@@ -1,38 +1,36 @@
-import type { LocalizedText } from './locale'
-
-export type ContactLink = {
-  label: string
-  href: string
-  external?: boolean
-}
-
-/** Replace the values here with your own profile and contact details. */
-export const profile: {
-  name: string
-  heroTitle: LocalizedText
-  heroDescription: LocalizedText
-  avatarAlt: LocalizedText
-  about: LocalizedText[]
-  email: string
-  contactLinks: ContactLink[]
-} = {
+/**
+ * 个人资料。单语中文——目标岗位是国内 Java 后端实习，
+ * 双语会让三个项目长文页的维护成本翻倍，收益接近零。
+ */
+export const profile = {
   name: '刘灿霖',
-  heroTitle: { zh: '你好，我是刘灿霖', en: 'Hi, I’m Canlin Liu' },
-  heroDescription: {
-    zh: '华南农业大学计算机科学与技术专业本科在读，专注于 Java 后端开发、AI 应用与高可用服务设计。',
-    en: 'An undergraduate Computer Science student focused on Java backend development, AI applications, and reliable services.',
-  },
-  avatarAlt: { zh: '刘灿霖的头像占位图', en: 'Avatar placeholder for Canlin Liu' },
+  /** 眉题：一眼看完学历与求职意图，供 HR 做初筛 */
+  eyebrow: '2028 届 · 华南农业大学 · 计算机科学与技术 · 求职方向：Java 后端开发实习',
+  /** 大标题：用有主张的短句，不用"你好，我是 XXX" */
+  headline: '每个数字都有出处',
+  /** 导语：承接大标题，给出可信度锚点，并引导面试官追问 */
+  lede: '我用 Spring Boot 3 写后端：一个已上线运行的图库服务，压测跑过 86.9 万次请求、0 错误；也用 Spring AI 做过带长期记忆检索的智能体。下面三个项目，每条性能指标都能追到原始测压数据或代码位置。',
+
   about: [
-    {
-      zh: '我熟悉 Java 基础、并发编程和 JVM 运行机制，能够使用 Spring Boot 3、Spring MVC 与 MyBatis-Plus 构建清晰、可维护的后端服务。',
-      en: 'I build clear, maintainable backend services with Java, Spring Boot 3, Spring MVC, and MyBatis-Plus, backed by knowledge of concurrency and the JVM.',
-    },
-    {
-      zh: '我关注缓存、权限和异步任务等工程细节，也持续探索 Spring AI、RAG、ReAct Agent 与 MCP 工具扩展在真实场景中的落地方式。',
-      en: 'I care about caching, access control, and asynchronous work while applying Spring AI, RAG, ReAct Agents, and MCP tool extensions to real scenarios.',
-    },
+    '华南农业大学计算机科学与技术专业 2028 届本科在读，求职方向是 Java 后端开发实习。',
+    '主力技术栈是 Spring Boot 3 + MyBatis-Plus + MySQL + Redis。做过空间级 RBAC 与方法级鉴权、Redis + Caffeine 两级缓存、WebSocket + Disruptor 多人协同编辑，以及 Jsoup 并发批量抓取。',
+    '线上服务做过 JMeter 全链路压测：按真实流量结构划四类场景、20→100 并发阶梯加压，累计 86.9 万请求、0 错误，实测单机聚合吞吐约 742 req/s。',
+    'AI 应用侧做过三层分层 Agent（BaseAgent → ReActAgent → ToolCallAgent）、PostgreSQL + pgvector 的 RAG 检索，以及短期滑窗 + 长期抽取双落的会话记忆。',
+    '我尽量把"测出来"放在"说出来"前面。上面提到的每个数字，在项目页里都标了原始出处。',
   ],
+
+  /** 首屏数据条。三个数字全部来自项目页里标了出处的指标，
+   *  首页与项目页用同一套数据，避免两处口径漂移。 */
+  heroFigures: [
+    { value: '86.9 万', label: '累计压测请求，0 错误' },
+    { value: '742', unit: 'req/s', label: '单机聚合吞吐' },
+    { value: '204.95', unit: 'ms', label: '缓存路径 p95（走 DB 为 240ms）' },
+  ],
+
   email: '3613503569@qq.com',
-  contactLinks: [{ label: 'GitHub', href: 'https://github.com/LCL-001', external: true }],
+  github: 'https://github.com/LCL-001',
+
+  /** 联系方式刻意不含手机号：手机号放在简历 PDF 里按需投递，
+   *  不公开挂在网上，否则会被爬虫抓去发垃圾短信。 */
+  contactNote: '简历与手机号可通过邮件索取，或见投递时附带的 PDF。',
 }

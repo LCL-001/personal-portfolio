@@ -1,44 +1,74 @@
 @import 'tailwindcss';
 
-:root {
-  color-scheme: dark;
-  --page-background: #0a0a0a;
-  --header-background: rgb(10 10 10 / 0.85);
-  --section-background: rgb(255 255 255 / 0.02);
-  --surface: rgb(255 255 255 / 0.04);
-  --surface-hover: rgb(255 255 255 / 0.08);
-  --input-background: rgb(0 0 0 / 0.18);
-  --text: #ffffff;
-  --muted: #a1a1aa;
-  --muted-strong: #d4d4d8;
-  --border: rgb(255 255 255 / 0.12);
-  --button-background: #ffffff;
-  --button-text: #18181b;
+/* ============================================================
+   设计令牌：深色编辑风（editorial dark）
+   强调色只有一支赭红。刻意不使用多段渐变与发光阴影——
+   这两者是最典型的"AI 模板"视觉指纹。
+   ============================================================ */
+@theme {
+  /* 色板 */
+  --color-ink: #0a0a0a;
+  --color-surface: #121110;
+  --color-raised: #191715;
+  --color-rule: rgb(255 255 255 / 0.09);
+  --color-rule-strong: rgb(255 255 255 / 0.18);
+  --color-body: #d6d1c8;
+  --color-muted: #8d887e;
+  --color-accent: #cf6a4a;
+  --color-accent-soft: rgb(207 106 74 / 0.12);
+
+  /* 字体：标题衬线 / 正文无衬线 / 数据等宽。全部走系统字体栈，
+     不引 web font——避免国内首屏字体请求拖慢与 FOUT。 */
+  --font-serif: ui-serif, Georgia, 'Songti SC', 'SimSun', 'Noto Serif CJK SC', serif;
+  --font-sans: ui-sans-serif, system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Consolas, 'Courier New', monospace;
 }
 
-:root[data-theme='light'] {
-  color-scheme: light;
-  --page-background: #f8fafc;
-  --header-background: rgb(248 250 252 / 0.85);
-  --section-background: rgb(15 23 42 / 0.035);
-  --surface: #ffffff;
-  --surface-hover: #f1f5f9;
-  --input-background: #ffffff;
-  --text: #0f172a;
-  --muted: #475569;
-  --muted-strong: #334155;
-  --border: rgb(15 23 42 / 0.14);
-  --button-background: #0f172a;
-  --button-text: #ffffff;
+:root {
+  color-scheme: dark;
+  --measure: 68ch;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
   min-width: 320px;
-  background: var(--page-background);
-  color: var(--text);
+  background: var(--color-ink);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #0a0a0a;
+}
+
+/* 键盘可达性：统一用强调色描边，不做发光 */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* 长文正文的舒适行长——编辑风排版的核心约束 */
+@utility measure {
+  max-width: var(--measure);
+}
+
+/* 章节编号：01 / 02 / 03，等宽、小字号、低对比 */
+@utility section-index {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--color-accent);
 }

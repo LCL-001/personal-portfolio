@@ -1,52 +1,35 @@
+import SectionHeading from './SectionHeading'
 import { profile } from '../data/profile'
-import { translations } from '../data/locale'
-import { skills, type Skill } from '../data/skills'
-import { usePreferences } from '../contexts/usePreferences'
+import { skillGroups } from '../data/skills'
 
-const categoryLabels: Record<Skill['category'], Record<'zh' | 'en', string>> = {
-  Backend: { zh: '后端开发', en: 'Backend' },
-  Data: { zh: '数据与中间件', en: 'Data & middleware' },
-  AI: { zh: 'AI 应用', en: 'AI applications' },
-  Engineering: { zh: '工程实践', en: 'Engineering' },
-}
-
-const skillGroups = skills.reduce<Record<Skill['category'], Skill[]>>(
-  (groups, skill) => {
-    groups[skill.category].push(skill)
-    return groups
-  },
-  { Backend: [], Data: [], AI: [], Engineering: [] },
-)
-
-/** Introduces the portfolio owner and their core working skills. */
+/** 关于：左侧正文、右侧技能，非对称栅格——编辑风不做左右均分。 */
 function About() {
-  const { language } = usePreferences()
-  const copy = translations[language]
-
   return (
-    <section id="about" className="border-y border-[var(--border)] bg-[var(--section-background)] px-6 py-24 sm:py-32" aria-labelledby="about-title">
-      <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
-        <div>
-          <p className="text-sm font-semibold tracking-[0.28em] text-cyan-300">{copy.aboutEyebrow}</p>
-          <h2 id="about-title" className="mt-5 text-3xl font-bold tracking-tight text-[var(--text)] sm:text-5xl">{copy.aboutTitle}</h2>
-        </div>
-        <div>
-          <div className="space-y-5 text-base leading-8 text-[var(--muted)] sm:text-lg">
-            {profile.about.map((paragraph) => <p key={paragraph[language]}>{paragraph[language]}</p>)}
+    <section id="about" className="px-6 py-24">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading
+          index="02"
+          title="关于"
+          lede="一段自我描述，和一份只包含真实用过的技术清单。"
+        />
+
+        <div className="mt-14 grid gap-14 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-20">
+          <div className="space-y-6">
+            {profile.about.map((paragraph) => (
+              <p key={paragraph} className="measure text-base leading-9 text-body">
+                {paragraph}
+              </p>
+            ))}
           </div>
-          <div className="mt-12 space-y-8">
-            {Object.entries(skillGroups).map(([category, categorySkills]) => {
-              const label = categoryLabels[category as Skill['category']][language]
-              return (
-                <div key={category}>
-                  <h3 className="text-sm font-semibold tracking-[0.16em] text-[var(--text)]">{label}</h3>
-                  <ul className="mt-4 flex flex-wrap gap-2" aria-label={label}>
-                    {categorySkills.map((skill) => <li key={skill.name} className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--muted-strong)]">{skill.name}</li>)}
-                  </ul>
-                </div>
-              )
-            })}
-          </div>
+
+          <dl className="space-y-8">
+            {skillGroups.map((group) => (
+              <div key={group.category}>
+                <dt className="font-mono text-xs tracking-[0.16em] text-accent">{group.category}</dt>
+                <dd className="mt-3 text-sm leading-7 text-muted">{group.items.join(' · ')}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>

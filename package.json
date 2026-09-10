@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:pages": "tsc -b && vite build --base=/personal-portfolio/ && node scripts/postbuild-pages.mjs",
+    "deploy": "npm run build:pages && gh-pages -d dist -b gh-pages",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -20,6 +22,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
+    "gh-pages": "^6.3.0",
     "oxlint": "^1.71.0",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2",
