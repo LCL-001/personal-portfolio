@@ -10,7 +10,7 @@ function Projects() {
         <SectionHeading
           index="01"
           title="项目"
-          lede="三个后端项目的完整工程记录：架构分层、关键技术决策、压测数据与出处，以及我已知的短板。每条性能指标都标了原始来源。"
+          lede="三个后端项目：架构分层、关键取舍，以及带出处的关键数字。"
         />
 
         <div className="mt-16 space-y-16">

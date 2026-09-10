@@ -1,10 +1,13 @@
-﻿import { Link, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ArchitectureFlow from '../components/ArchitectureFlow'
-import DecisionBlock from '../components/DecisionBlock'
 import MetricGrid from '../components/MetricGrid'
+import StoryBlock from '../components/StoryBlock'
 import { projects } from '../data/projects'
 
-/** 项目长文页：一条可追溯的工程记录，按"读完能开始追问"的顺序组织。 */
+/**
+ * 项目长文页。信息顺序按读者的注意力排：
+ * 先看是什么、长什么样，再看做成了什么，然后是数字与架构，最后才是怎么想的。
+ */
 function ProjectPage() {
   const { slug } = useParams<{ slug: string }>()
   const project = projects.find((item) => item.slug === slug)
@@ -73,11 +76,37 @@ function ProjectPage() {
           <p className="mt-8 font-mono text-xs leading-6 text-muted">{project.stack.join(' · ')}</p>
         </header>
 
+        {project.image ? (
+          <figure className="mt-16">
+            <img
+              src={project.image}
+              alt={project.imageAlt ?? ''}
+              loading="lazy"
+              decoding="async"
+              className="w-full border border-rule"
+            />
+            {project.imageAlt ? (
+              <figcaption className="mt-3 font-mono text-xs text-muted">
+                {project.imageAlt}
+              </figcaption>
+            ) : null}
+          </figure>
+        ) : null}
+
         <section className="mt-24">
-          <h2 className="font-serif text-2xl font-normal text-white">性能指标与出处</h2>
-          <p className="measure mt-3 text-sm leading-7 text-muted">
-            每个数字都标了它的原始来源和测量方法。如果你要问"这是怎么测出来的"，答案在这一行里。
-          </p>
+          <h2 className="font-serif text-2xl font-normal text-white">做成了什么</h2>
+          <ul className="mt-8 grid gap-px sm:grid-cols-2">
+            {project.highlights.map((highlight) => (
+              <li key={highlight.title} className="border-t border-rule py-6 sm:pr-10">
+                <h3 className="font-mono text-base leading-6 text-white">{highlight.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-body">{highlight.body}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="mt-24">
+          <h2 className="font-serif text-2xl font-normal text-white">关键数字</h2>
           <div className="mt-8">
             <MetricGrid metrics={project.metrics} />
           </div>
@@ -94,41 +123,15 @@ function ProjectPage() {
         </section>
 
         <section className="mt-24">
-          <h2 className="font-serif text-2xl font-normal text-white">关键技术决策</h2>
+          <h2 className="font-serif text-2xl font-normal text-white">关键取舍</h2>
           <p className="measure mt-3 text-sm leading-7 text-muted">
-            每条包含被否掉的方案和这个方案的代价。局限是我主动写出来的，不是等被问出来的。
+            每条是一个当时真实面对的选择，以及为什么这么做。
           </p>
           <div className="mt-10 space-y-12">
-            {project.decisions.map((decision, index) => (
-              <DecisionBlock key={decision.approach} decision={decision} index={index} />
+            {project.stories.map((story, index) => (
+              <StoryBlock key={story.title} story={story} index={index} />
             ))}
           </div>
-        </section>
-
-        <section className="mt-24">
-          <h2 className="font-serif text-2xl font-normal text-white">压测暴露的瓶颈</h2>
-          <div className="mt-8 space-y-8">
-            {project.bottlenecks.map((item) => (
-              <div key={item.title} className="border-t border-rule pt-6">
-                <h3 className="font-mono text-sm text-white">{item.title}</h3>
-                <p className="measure mt-3 text-sm leading-7 text-body">{item.body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-24">
-          <h2 className="font-serif text-2xl font-normal text-white">已知短板</h2>
-          <ul className="mt-8 space-y-4">
-            {project.limitations.map((item) => (
-              <li key={item} className="measure flex gap-4 text-sm leading-7 text-body">
-                <span aria-hidden="true" className="font-mono text-accent">
-                  —
-                </span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
         </section>
 
         <footer className="mt-24 border-t border-rule pt-8">
@@ -136,7 +139,7 @@ function ProjectPage() {
             to="/#contact"
             className="font-mono text-sm text-accent transition-opacity hover:opacity-75"
           >
-            想追问这个项目？→ 联系方式
+            想聊这个项目？→ 联系方式
           </Link>
         </footer>
       </div>

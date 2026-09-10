@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 import type { Project } from '../types'
 
 /**
- * 项目列表项。编辑风的索引式条目：一条发丝线、编号、标题、一句定位，
- * 然后直接抛出前三个带出处的指标——让面试官在列表页就决定要不要点进去追问。
+ * 项目列表项：一条发丝线、编号、标题、一句定位，
+ * 有真实截图的项目先上图——作品集需要有东西可看。
  */
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const headlineMetrics = project.metrics.slice(0, 3)
@@ -19,7 +19,19 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </p>
       </div>
 
-      <h3 className="mt-5 font-serif text-3xl font-normal tracking-tight text-white sm:text-4xl">
+      {project.image ? (
+        <Link to={`/projects/${project.slug}`} className="mt-6 block">
+          <img
+            src={project.image}
+            alt={project.imageAlt ?? ''}
+            loading="lazy"
+            decoding="async"
+            className="w-full border border-rule transition-opacity hover:opacity-90"
+          />
+        </Link>
+      ) : null}
+
+      <h3 className="mt-6 font-serif text-3xl font-normal tracking-tight text-white sm:text-4xl">
         <Link to={`/projects/${project.slug}`} className="transition-colors hover:text-accent">
           {project.title}
         </Link>

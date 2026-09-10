@@ -1,8 +1,8 @@
 import type { Metric } from '../types'
 
 /**
- * 指标网格。每个数字下面永远带着出处和方法——
- * 这是这个作品集最重要的一个设计决定：让"讲不出来源"的数字没地方藏。
+ * 指标网格：大数字 + 一行出处。
+ * 出处保留但收成一行小字，不再展开测量方法——方法的细节留给面试口头讲。
  */
 function MetricGrid({ metrics }: { metrics: Metric[] }) {
   return (
@@ -14,17 +14,7 @@ function MetricGrid({ metrics }: { metrics: Metric[] }) {
             {metric.unit ? <span className="ml-1 text-sm text-muted">{metric.unit}</span> : null}
           </p>
           <p className="mt-3 text-sm text-body">{metric.label}</p>
-
-          <dl className="mt-5 space-y-2">
-            <div className="flex gap-2">
-              <dt className="shrink-0 font-mono text-[0.65rem] tracking-[0.12em] text-muted">出处</dt>
-              <dd className="font-mono text-[0.65rem] leading-4 text-muted">{metric.source}</dd>
-            </div>
-            <div className="flex gap-2">
-              <dt className="shrink-0 font-mono text-[0.65rem] tracking-[0.12em] text-muted">方法</dt>
-              <dd className="font-mono text-[0.65rem] leading-4 text-muted">{metric.method}</dd>
-            </div>
-          </dl>
+          <p className="mt-3 font-mono text-[0.65rem] leading-4 text-muted">{metric.source}</p>
         </li>
       ))}
     </ul>
